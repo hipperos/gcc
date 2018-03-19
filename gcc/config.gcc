@@ -716,6 +716,13 @@ case ${target} in
 *-*-fuchsia*)
   native_system_header_dir=/include
   ;;
+*-*-hipperos*)
+  tm_file="${tm_file} hipperos.h"
+  gas=yes
+  gnu_ld=yes
+  default_use_cxa_atexit=yes
+  use_gcc_stdint=wrap
+  ;;
 *-*-linux* | frv-*-*linux* | *-*-kfreebsd*-gnu | *-*-gnu* | *-*-kopensolaris*-gnu)
   extra_options="$extra_options gnu-user.opt"
   gas=yes
@@ -1133,7 +1140,7 @@ arm*-*-phoenix*)
 	tmake_file="${tmake_file} arm/t-arm arm/t-bpabi arm/t-phoenix"
 	target_cpu_cname="arm7tdmi"
 	;;
-arm*-*-eabi* | arm*-*-symbianelf* | arm*-*-rtems* | arm*-*-fuchsia*)
+arm*-*-eabi* | arm*-*-symbianelf* | arm*-*-rtems* | arm*-*-fuchsia* | arm*-*-hipperos*)
 	case ${target} in
 	arm*eb-*-eabi*)
 	  tm_defines="${tm_defines} TARGET_BIG_ENDIAN_DEFAULT=1"
@@ -1147,6 +1154,10 @@ arm*-*-eabi* | arm*-*-symbianelf* | arm*-*-rtems* | arm*-*-fuchsia*)
 	  tm_file="$tm_file newlib-stdint.h"
 	  tmake_file="${tmake_file} arm/t-bpabi"
 	  use_gcc_stdint=wrap
+	  ;;
+	arm*-*-hipperos*)
+	  tm_file="${tm_file} newlib-stdint.h"
+	  tmake_file="${tmake_file} arm/t-bpabi arm/t-hipperos"
 	  ;;
 	arm*-*-fuchsia*)
 	  tm_file="${tm_file} fuchsia.h arm/fuchsia-elf.h glibc-stdint.h"
