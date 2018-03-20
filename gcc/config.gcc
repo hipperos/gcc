@@ -1156,7 +1156,7 @@ arm*-*-eabi* | arm*-*-symbianelf* | arm*-*-rtems* | arm*-*-fuchsia* | arm*-*-hip
 	  use_gcc_stdint=wrap
 	  ;;
 	arm*-*-hipperos*)
-	  tm_file="${tm_file} newlib-stdint.h"
+	  tm_file="${tm_file} hipperos.h newlib-stdint.h"
 	  tmake_file="${tmake_file} arm/t-bpabi arm/t-hipperos"
 	  ;;
 	arm*-*-fuchsia*)
