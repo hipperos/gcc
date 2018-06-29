@@ -720,6 +720,7 @@ case ${target} in
   tm_file="${tm_file} hipperos.h"
   gas=yes
   gnu_ld=yes
+  extra_options="${extra_options} hipperos.opt"
   default_use_cxa_atexit=yes
   use_gcc_stdint=wrap
   ;;
