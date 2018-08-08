@@ -928,7 +928,7 @@ case ${target} in
 esac
 
 case ${target} in
-aarch64*-*-elf | aarch64*-*-fuchsia* | aarch64*-*-rtems* | aarch64*-*-hipperos*)
+aarch64*-*-elf | aarch64*-*-fuchsia* | aarch64*-*-hipperos* | aarch64*-*-rtems*)
 	tm_file="${tm_file} dbxelf.h elfos.h newlib-stdint.h"
 	tm_file="${tm_file} aarch64/aarch64-elf.h aarch64/aarch64-elf-raw.h"
 	tmake_file="${tmake_file} aarch64/t-aarch64"

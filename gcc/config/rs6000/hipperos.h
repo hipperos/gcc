@@ -280,6 +280,7 @@
 %{mcpu=821:  %{!Dppc*: %{!Dmpc*: -Dmpc821}  } } \
 %{mcpu=860:  %{!Dppc*: %{!Dmpc*: -Dmpc860}  } } \
 %{mcpu=8540: %{!Dppc*: %{!Dmpc*: -Dppc8540}  } } \
+%{mcpu=e5500: -D__PPC_CPU_E5500__} \
 %{mcpu=e6500: -D__PPC_CPU_E6500__}"
 
 #undef	ASM_DEFAULT_SPEC

@@ -4,16 +4,22 @@
 #undef TARGET_HIPPEROS
 #define TARGET_HIPPEROS 1
 
-// #undef STARTFILE_SPEC
-// #define STARTFILE_SPEC ""
-//
-// #undef ENDFILE_SPEC
-// #define ENDFILE_SPEC   ""
+/* Commented until investigation regarding startfiles/endfiles */
+/*
+#undef STARTFILE_SPEC
+#define STARTFILE_SPEC ""
+
+#undef ENDFILE_SPEC
+#define ENDFILE_SPEC ""
+*/
 
 #define STD_LIB_SPEC ""
 
-// #undef LIBGCC_SPEC
-// #define LIBGCC_SPEC ""
+/* Commented until investigation regarding libgcc/compiler-rt */
+/*
+#undef LIBGCC_SPEC
+#define LIBGCC_SPEC ""
+*/
 
 #undef LIB_SPEC
 #define LIB_SPEC "%{!huser: " STD_LIB_SPEC "} " \
