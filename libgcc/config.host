@@ -333,7 +333,7 @@ i[34567]86-*-mingw* | x86_64-*-mingw*)
 esac
 
 case ${host} in
-aarch64*-*-elf | aarch64*-*-rtems*)
+aarch64*-*-elf | aarch64*-*-rtems* | aarch64*-*hipperos*)
 	extra_parts="$extra_parts crtbegin.o crtend.o crti.o crtn.o"
 	extra_parts="$extra_parts crtfastmath.o"
 	tmake_file="${tmake_file} ${cpu_type}/t-aarch64"
@@ -607,6 +607,9 @@ i[34567]86-*-freebsd*)
 x86_64-*-freebsd*)
 	tmake_file="${tmake_file} i386/t-freebsd i386/t-crtstuff"
 	md_unwind_header=i386/freebsd-unwind.h
+	;;
+i[34567]86-*-hipperos*)
+	tmake_file="$tmake_file i386/t-crtstuff t-crtstuff-pic t-libgcc-pic"
 	;;
 i[34567]86-*-netbsdelf*)
 	tmake_file="${tmake_file} i386/t-crtstuff"
@@ -1043,6 +1046,21 @@ powerpc-*-eabi*)
 	tmake_file="${tmake_file} rs6000/t-ppccomm rs6000/t-savresfgpr rs6000/t-crtstuff t-crtstuff-pic t-fdpbit"
 	extra_parts="$extra_parts crtbegin.o crtend.o crtbeginS.o crtendS.o crtbeginT.o ecrti.o ecrtn.o ncrti.o ncrtn.o"
 	;;
+powerpc*-*-hipperos*)
+    tmake_file="${tmake_file} rs6000/t-ppccomm rs6000/t-savresfgpr rs6000/t-crtstuff t-dfprules rs6000/t-ppc64-fp t-slibgcc-libgcc"
+    tmake_file="${tmake_file} t-stack rs6000/t-stack-rs6000"
+
+    if test $libgcc_cv_powerpc_float128 = yes; then
+        tmake_file="${tmake_file} rs6000/t-float128"
+    fi
+
+    if test $libgcc_cv_powerpc_float128_hw = yes; then
+        tmake_file="${tmake_file} rs6000/t-float128-hw"
+    fi
+
+    extra_parts="$extra_parts ecrti.o ecrtn.o ncrti.o ncrtn.o"
+    md_unwind_header=rs6000/linux-unwind.h
+    ;;
 powerpc-*-rtems*)
 	tmake_file="${tmake_file} rs6000/t-ppccomm rs6000/t-savresfgpr rs6000/t-crtstuff t-crtstuff-pic t-fdpbit"
 	extra_parts="$extra_parts crtbeginS.o crtendS.o crtbeginT.o ecrti.o ecrtn.o ncrti.o ncrtn.o"
