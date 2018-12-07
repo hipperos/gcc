@@ -1,5 +1,11 @@
 2018-12-07  Vladimir Svoboda  <vladimir.svoboda@hipperos.com>
 
+	* config.gcc (i[34567]86-*-hipperos*): Add support for HIPPEROS on x86
+	(i[34567]86-*-hipperos*).
+	* config/i386/hipperos.h: New file.
+
+2018-12-07  Vladimir Svoboda  <vladimir.svoboda@hipperos.com>
+
 	* config.gcc (powerpc*-*-hipperos*): Add support for HIPPEROS on PowerPC
 	(powerpc*-*-hipperos*).
 	* config/rs6000/sysv4.h: Likewise.
