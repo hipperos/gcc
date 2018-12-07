@@ -1145,7 +1145,7 @@ arm*-*-phoenix*)
 	tmake_file="${tmake_file} arm/t-arm arm/t-bpabi arm/t-phoenix"
 	target_cpu_cname="arm7tdmi"
 	;;
-arm*-*-eabi* | arm*-*-symbianelf* | arm*-*-rtems* | arm*-*-fuchsia*)
+arm*-*-eabi* | arm*-*-symbianelf* | arm*-*-rtems* | arm*-*-fuchsia* | arm*-*-hipperos*)
 	case ${target} in
 	arm*eb-*-eabi*)
 	  tm_defines="${tm_defines} TARGET_BIG_ENDIAN_DEFAULT=1"
@@ -1164,6 +1164,10 @@ arm*-*-eabi* | arm*-*-symbianelf* | arm*-*-rtems* | arm*-*-fuchsia*)
 	  tm_file="${tm_file} fuchsia.h arm/fuchsia-elf.h glibc-stdint.h"
 	  tmake_file="${tmake_file} arm/t-bpabi"
 	  target_cpu_cname="genericv7a"
+	  ;;
+	arm*-*-hipperos*)
+	  tm_file="${tm_file} ${hipperos_tm_file}"
+	  tmake_file="${tmake_file} arm/t-bpabi arm/t-hipperos"
 	  ;;
 	arm*-*-rtems*)
 	  tm_file="${tm_file} rtems.h arm/rtems.h newlib-stdint.h"

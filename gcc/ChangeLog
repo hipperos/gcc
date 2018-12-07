@@ -1,5 +1,11 @@
 2018-12-07  Vladimir Svoboda  <vladimir.svoboda@hipperos.com>
 
+	* config.gcc (arm*-*-hipperos*): Add support for HIPPEROS on ARM
+	(arm*-*-hipperos*).
+	* config/arm/t-hipperos: New file.
+
+2018-12-07  Vladimir Svoboda  <vladimir.svoboda@hipperos.com>
+
 	* config.gcc (*-*-hipperos*): Add (*-*-hipperos*) configuration.
 	* config/hipperos-spec.h: New file.
 	* config/hipperos.h: New file.
