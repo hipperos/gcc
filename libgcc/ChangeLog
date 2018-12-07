@@ -1,5 +1,10 @@
 2018-12-07  Vladimir Svoboda  <vladimir.svoboda@hipperos.com>
 
+	* config.host (aarch64*-*-hipperos*): Add support for HIPPEROS on AARCH64
+	(aarch64*-*-hipperos*).
+
+2018-12-07  Vladimir Svoboda  <vladimir.svoboda@hipperos.com>
+
 	* config.host (arm*-*-hipperos*): Add support for HIPPEROS on ARM
 	(arm*-*-hipperos*).
 
