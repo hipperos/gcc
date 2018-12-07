@@ -1,5 +1,10 @@
 2018-12-07  Vladimir Svoboda  <vladimir.svoboda@hipperos.com>
 
+	* config.host (arm*-*-hipperos*): Add support for HIPPEROS on ARM
+	(arm*-*-hipperos*).
+
+2018-12-07  Vladimir Svoboda  <vladimir.svoboda@hipperos.com>
+
 	* config/rs6000/t-float128: Add -mfloat128-type "float128" for compile-time
 	check.
 	* config/rs6000/t-float128-hw: Likewise.

@@ -1,0 +1,34 @@
+# Multilibs for ARMv7-A HIPPEROS targets.
+
+MULTILIB_OPTIONS     =
+MULTILIB_DIRNAMES    =
+MULTILIB_EXCEPTIONS  =
+MULTILIB_MATCHES     =
+MULTILIB_REUSE	     =
+
+# We have the following hierachy:
+#   ISA: A32 (.)
+#   Architecture: ARMv7-A (.).
+#   FPU: VFPv3-D16 (fpv3)
+#   Float-abi: Soft (.), softfp (softfp), or hard (hardfp).
+
+MULTILIB_OPTIONS       += mfpu=vfpv3-d16
+MULTILIB_DIRNAMES      += fpv3
+
+MULTILIB_OPTIONS       += mfloat-abi=softfp/mfloat-abi=hard
+MULTILIB_DIRNAMES      += softfp hard
+
+# Option combinations to build library with
+
+# ARMv7-A
+MULTILIB_REQUIRED      += mfpu=vfpv3-d16/mfloat-abi=*
+
+# CPU Matches
+MULTILIB_MATCHES       += march?armv7-a=mcpu?cortex-a8
+MULTILIB_MATCHES       += march?armv7-a=mcpu?cortex-a9
+MULTILIB_MATCHES       += march?armv7-a=mcpu?cortex-a5
+
+# FPU matches
+MULTILIB_MATCHES       += mfpu?vfpv3-d16=mfpu?vfpv3
+MULTILIB_MATCHES       += mfpu?vfpv3-d16=mfpu?vfpv3-fp16
+MULTILIB_MATCHES       += mfpu?vfpv3-d16=mfpu?vfpv3-d16-fp16
