@@ -716,6 +716,18 @@ case ${target} in
 *-*-fuchsia*)
   native_system_header_dir=/include
   ;;
+*-*-hipperos*)
+  # See the explanations regarding the ordering of the tm files in the FreeBSD
+  # case.
+  # We do something very similar. The ordering must be:
+  # "hipperos-spec.h hipperos.h newlib-stdint.h <proc/arch-specific files>"
+  hipperos_tm_file="hipperos-spec.h hipperos.h newlib-stdint.h"
+  gas=yes
+  gnu_ld=yes
+  extra_options="${extra_options} hipperos.opt"
+  default_use_cxa_atexit=yes
+  use_gcc_stdint=wrap
+  ;;
 *-*-linux* | frv-*-*linux* | *-*-kfreebsd*-gnu | *-*-gnu* | *-*-kopensolaris*-gnu)
   extra_options="$extra_options gnu-user.opt"
   gas=yes

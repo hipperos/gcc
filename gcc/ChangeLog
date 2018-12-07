@@ -1,3 +1,10 @@
+2018-12-07  Vladimir Svoboda  <vladimir.svoboda@hipperos.com>
+
+	* config.gcc (*-*-hipperos*): Add (*-*-hipperos*) configuration.
+	* config/hipperos-spec.h: New file.
+	* config/hipperos.h: New file.
+	* config/hipperos.opt: New file.
+
 2018-12-06  Release Manager
 
 	* GCC 7.4.0 released.
