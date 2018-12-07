@@ -1,3 +1,8 @@
+2018-12-07  Vladimir Svoboda  <vladimir.svoboda@hipperos.com>
+
+	* crossconfig.m4 (*-hipperos*):  Add support for HIPPEROS (*-hipperos*).
+	* configure (*-hipperos*): Regenerate.
+
 2018-12-06  Release Manager
 
 	* GCC 7.4.0 released.
