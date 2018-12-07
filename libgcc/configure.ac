@@ -382,7 +382,7 @@ case ${host} in
 # for hardware support.
 powerpc*-*-linux*)
   saved_CFLAGS="$CFLAGS"
-  CFLAGS="$CFLAGS -mabi=altivec -mvsx -mfloat128"
+  CFLAGS="$CFLAGS -mabi=altivec -mvsx -mfloat128 -mfloat128-type"
   AC_CACHE_CHECK([for PowerPC ISA 2.06 to build __float128 libraries],
 		 [libgcc_cv_powerpc_float128],
 		 [AC_COMPILE_IFELSE(
