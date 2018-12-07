@@ -87,6 +87,7 @@ do {									\
   else if (!strcmp (rs6000_abi_name, "aixdesc"))			\
     rs6000_current_abi = ABI_AIX;					\
   else if (!strcmp (rs6000_abi_name, "freebsd")				\
+       || !strcmp (rs6000_abi_name, "hipperos")			\
 	   || !strcmp (rs6000_abi_name, "linux"))			\
     {									\
       if (TARGET_64BIT)							\
@@ -553,6 +554,7 @@ ENDIAN_SELECT(" -mbig", " -mlittle", DEFAULT_ASM_ENDIAN)
 %{!meabi: %{!mno-eabi: \
     %{mrelocatable: -meabi } \
     %{mcall-freebsd: -mno-eabi } \
+    %{mcall-hipperos: -mno-eabi } \
     %{mcall-i960-old: -meabi } \
     %{mcall-linux: -mno-eabi } \
     %{mcall-netbsd: -mno-eabi } \
@@ -569,6 +571,7 @@ ENDIAN_SELECT(" -mbig", " -mlittle", DEFAULT_ASM_ENDIAN)
   mmvme        : %(link_start_mvme)        ; \
   msim         : %(link_start_sim)         ; \
   mcall-freebsd: %(link_start_freebsd)     ; \
+  mcall-hipperos: %(link_start_hipperos)   ; \
   mcall-linux  : %(link_start_linux)       ; \
   mcall-netbsd : %(link_start_netbsd)      ; \
   mcall-openbsd: %(link_start_openbsd)     ; \
@@ -600,6 +603,7 @@ ENDIAN_SELECT(" -mbig", " -mlittle", DEFAULT_ASM_ENDIAN)
   mmvme        : %(link_os_mvme)        ; \
   msim         : %(link_os_sim)         ; \
   mcall-freebsd: %(link_os_freebsd)     ; \
+  mcall-hipperos: %(link_os_hipperos)   ; \
   mcall-linux  : %(link_os_linux)       ; \
   mcall-netbsd : %(link_os_netbsd)      ; \
   mcall-openbsd: %(link_os_openbsd)     ; \
@@ -618,6 +622,7 @@ ENDIAN_SELECT(" -mbig", " -mlittle", DEFAULT_ASM_ENDIAN)
   mmvme        : %(cpp_os_mvme)        ; \
   msim         : %(cpp_os_sim)         ; \
   mcall-freebsd: %(cpp_os_freebsd)     ; \
+  mcall-hipperos: %(cpp_os_hipperos)   ; \
   mcall-linux  : %(cpp_os_linux)       ; \
   mcall-netbsd : %(cpp_os_netbsd)      ; \
   mcall-openbsd: %(cpp_os_openbsd)     ; \
@@ -632,6 +637,7 @@ ENDIAN_SELECT(" -mbig", " -mlittle", DEFAULT_ASM_ENDIAN)
   mmvme        : %(startfile_mvme)        ; \
   msim         : %(startfile_sim)         ; \
   mcall-freebsd: %(startfile_freebsd)     ; \
+  mcall-hipperos: %(startfile_hipperos)   ; \
   mcall-linux  : %(startfile_linux)       ; \
   mcall-netbsd : %(startfile_netbsd)      ; \
   mcall-openbsd: %(startfile_openbsd)     ; \
@@ -646,6 +652,7 @@ ENDIAN_SELECT(" -mbig", " -mlittle", DEFAULT_ASM_ENDIAN)
   mmvme        : %(lib_mvme)        ; \
   msim         : %(lib_sim)         ; \
   mcall-freebsd: %(lib_freebsd)     ; \
+  mcall-hipperos: %(lib_hipperos)   ; \
   mcall-linux  : %(lib_linux)       ; \
   mcall-netbsd : %(lib_netbsd)      ; \
   mcall-openbsd: %(lib_openbsd)     ; \
@@ -660,6 +667,7 @@ ENDIAN_SELECT(" -mbig", " -mlittle", DEFAULT_ASM_ENDIAN)
   mmvme        : %(endfile_mvme)        ; \
   msim         : %(endfile_sim)         ; \
   mcall-freebsd: %(endfile_freebsd)     ; \
+  mcall-hipperos: %(endfile_hipperos)   ; \
   mcall-linux  : %(endfile_linux)       ; \
   mcall-netbsd : %(endfile_netbsd)      ; \
   mcall-openbsd: %(endfile_openbsd)     ; \
@@ -742,6 +750,38 @@ ENDIAN_SELECT(" -mbig", " -mlittle", DEFAULT_ASM_ENDIAN)
       %{rdynamic: -export-dynamic} \
       -dynamic-linker %(fbsd_dynamic_linker) } \
     %{static:-Bstatic}} \
+  %{symbolic:-Bsymbolic}"
+
+/* HIPPEROS support.  */
+
+#define CPP_OS_HIPPEROS_SPEC	"\
+  -D__PPC__ -D__ppc__ -D__PowerPC__ -D__powerpc__ \
+  -Acpu=powerpc -Amachine=powerpc"
+
+/*
+ * The 2 following lines are slight modifications of those from hipperos-spec.h
+ */
+#define STARTFILE_HIPPEROS_SPEC	"%{!maestro: crt0%O%s} ecrti%O%s crtbegin%O%s"
+#define ENDFILE_HIPPEROS_SPEC	"crtend%O%s ecrtn%O%s"
+
+/*
+ * Don't make the addition of hipperos-spec.h to the tm_files mandatory when
+ * not building for HIPPEROS.
+ */
+#ifdef HIPPEROS_LIB_SPEC
+#define LIB_HIPPEROS_SPEC	HIPPEROS_LIB_SPEC
+#else
+#define LIB_HIPPEROS_SPEC	""
+#endif
+
+#define LINK_START_HIPPEROS_SPEC	""
+
+#define LINK_OS_HIPPEROS_SPEC "\
+  %{p:%nconsider using '-pg' instead of '-p' with gprof(1)} \
+  %{v:-V} \
+  %{assert*} %{R*} %{rpath*} %{defsym*} \
+  %{shared:-Bshareable %{h*} %{soname*}} \
+  %{!shared: %{static:-Bstatic}} \
   %{symbolic:-Bsymbolic}"
 
 /* GNU/Linux support.  */
@@ -886,6 +926,7 @@ ncrtn.o%s"
   { "lib_mvme",			LIB_MVME_SPEC },			\
   { "lib_sim",			LIB_SIM_SPEC },				\
   { "lib_freebsd",		LIB_FREEBSD_SPEC },			\
+  { "lib_hipperos",		LIB_HIPPEROS_SPEC },			\
   { "lib_linux",		LIB_LINUX_SPEC },			\
   { "lib_netbsd",		LIB_NETBSD_SPEC },			\
   { "lib_openbsd",		LIB_OPENBSD_SPEC },			\
@@ -895,6 +936,7 @@ ncrtn.o%s"
   { "startfile_mvme",		STARTFILE_MVME_SPEC },			\
   { "startfile_sim",		STARTFILE_SIM_SPEC },			\
   { "startfile_freebsd",	STARTFILE_FREEBSD_SPEC },		\
+  { "startfile_hipperos",	STARTFILE_HIPPEROS_SPEC },		\
   { "startfile_linux",		STARTFILE_LINUX_SPEC },			\
   { "startfile_netbsd",		STARTFILE_NETBSD_SPEC },		\
   { "startfile_openbsd",	STARTFILE_OPENBSD_SPEC },		\
@@ -904,6 +946,7 @@ ncrtn.o%s"
   { "endfile_mvme",		ENDFILE_MVME_SPEC },			\
   { "endfile_sim",		ENDFILE_SIM_SPEC },			\
   { "endfile_freebsd",		ENDFILE_FREEBSD_SPEC },			\
+  { "endfile_hipperos",		ENDFILE_HIPPEROS_SPEC },			\
   { "endfile_linux",		ENDFILE_LINUX_SPEC },			\
   { "endfile_netbsd",		ENDFILE_NETBSD_SPEC },			\
   { "endfile_openbsd",		ENDFILE_OPENBSD_SPEC },			\
@@ -915,6 +958,7 @@ ncrtn.o%s"
   { "link_start_mvme",		LINK_START_MVME_SPEC },			\
   { "link_start_sim",		LINK_START_SIM_SPEC },			\
   { "link_start_freebsd",	LINK_START_FREEBSD_SPEC },		\
+  { "link_start_hipperos",	LINK_START_HIPPEROS_SPEC },		\
   { "link_start_linux",		LINK_START_LINUX_SPEC },		\
   { "link_start_netbsd",	LINK_START_NETBSD_SPEC },		\
   { "link_start_openbsd",	LINK_START_OPENBSD_SPEC },		\
@@ -925,6 +969,7 @@ ncrtn.o%s"
   { "link_os_mvme",		LINK_OS_MVME_SPEC },			\
   { "link_os_sim",		LINK_OS_SIM_SPEC },			\
   { "link_os_freebsd",		LINK_OS_FREEBSD_SPEC },			\
+  { "link_os_hipperos",		LINK_OS_HIPPEROS_SPEC },			\
   { "link_os_linux",		LINK_OS_LINUX_SPEC },			\
   { "link_os_netbsd",		LINK_OS_NETBSD_SPEC },			\
   { "link_os_openbsd",		LINK_OS_OPENBSD_SPEC },			\
@@ -936,6 +981,7 @@ ncrtn.o%s"
   { "cpp_os_mvme",		CPP_OS_MVME_SPEC },			\
   { "cpp_os_sim",		CPP_OS_SIM_SPEC },			\
   { "cpp_os_freebsd",		CPP_OS_FREEBSD_SPEC },			\
+  { "cpp_os_hipperos",		CPP_OS_HIPPEROS_SPEC },			\
   { "cpp_os_linux",		CPP_OS_LINUX_SPEC },			\
   { "cpp_os_netbsd",		CPP_OS_NETBSD_SPEC },			\
   { "cpp_os_openbsd",		CPP_OS_OPENBSD_SPEC },			\

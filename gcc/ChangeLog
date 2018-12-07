@@ -1,5 +1,13 @@
 2018-12-07  Vladimir Svoboda  <vladimir.svoboda@hipperos.com>
 
+	* config.gcc (powerpc*-*-hipperos*): Add support for HIPPEROS on PowerPC
+	(powerpc*-*-hipperos*).
+	* config/rs6000/sysv4.h: Likewise.
+	* config/rs6000/hipperos.h: New file.
+	* config/rs6000/t-hipperos: New file.
+
+2018-12-07  Vladimir Svoboda  <vladimir.svoboda@hipperos.com>
+
 	* config.gcc (aarch64*-*-hipperos*): Add support for HIPPEROS on AARCH64
 	(aarch64*-*-hipperos*).
 	* config/aarch64/aarch64-hipperos.h: New file.

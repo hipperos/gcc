@@ -342,7 +342,7 @@ AC_MSG_RESULT([$glibc_version_major.$glibc_version_minor])
 # Single-precision-only FPRs are not a supported configuration for
 # this target, so are not allowed for in this test.
 case ${host} in
-powerpc*-*-linux*)
+powerpc*-*-linux* | powerpc*-*-hipperos*)
   cat > conftest.c <<EOF
 #ifdef __powerpc64__
 ppc_fp_type=64
@@ -380,7 +380,7 @@ case ${host} in
 # so just check if we have VSX (ISA 2.06) support to build the
 # software libraries, and whether the assembler can handle xsaddqp
 # for hardware support.
-powerpc*-*-linux*)
+powerpc*-*-linux* | powerpc*-*-hipperos*)
   saved_CFLAGS="$CFLAGS"
   CFLAGS="$CFLAGS -mabi=altivec -mvsx -mfloat128 -mfloat128-type"
   AC_CACHE_CHECK([for PowerPC ISA 2.06 to build __float128 libraries],
