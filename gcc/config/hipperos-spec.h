@@ -66,20 +66,18 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 /*
  * Some targets do not set up LIB_SPECS, override it, here.
  */
-#define HIPPEROS_STD_LIB_SPEC ""
+#define HIPPEROS_STD_LIB_SPEC "%{!nostdlib: -lc}"
 
 /*
- * Use with the libc only if -maestro has been provided.
- * This is required due to the dummy crt0 used to passe compiler checks.
- * Note that there is a cross-dependency between the libc depends and the libapi
+ * Note that there is a cross-dependency between the libc and the libapi
  * that is not solved here.
  *
  * If -maestro-sl has been given, link with the kernel-specific build of
  * compiler-rt.
  */
 #define HIPPEROS_LIB_SPEC \
-    "%{!maestro: " HIPPEROS_STD_LIB_SPEC "} " \
-    "%{!nostdlib: %{maestro: -lc %{maestro-sl: -lcompiler_rt_kernel}}}"
+    HIPPEROS_STD_LIB_SPEC \
+    " %{!nostdlib: %{maestro: %{maestro-sl: -lcompiler_rt_kernel}}}"
 
 /*
  * -z max-page-size
